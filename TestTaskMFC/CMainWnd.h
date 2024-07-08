@@ -9,6 +9,7 @@ class CMainWnd :
 public:
     CMainWnd();
     int OnCreate(LPCREATESTRUCT lpCreateStruct);
+    void OnFileExit();
     ~CMainWnd();
 private:
     CStatusBar m_wndStatusBar;

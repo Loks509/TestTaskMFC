@@ -1,6 +1,7 @@
 #include "CMainWnd.h"
 BEGIN_MESSAGE_MAP(CMainWnd, CFrameWnd)
 	ON_WM_CREATE()
+	ON_COMMAND(ID_FILE_EXIT, OnFileExit)
 END_MESSAGE_MAP()
 
 CMainWnd::CMainWnd()
@@ -19,6 +20,10 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	}
 	SetMenu(&m_wndMenu);
 	return 0;
+}
+
+void CMainWnd::OnFileExit() {
+	DestroyWindow();
 }
 
 CMainWnd::~CMainWnd()
