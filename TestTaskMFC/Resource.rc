@@ -54,8 +54,8 @@ IDR_MENU1 MENU
 BEGIN
     POPUP "File"
     BEGIN
-        MENUITEM "Load",                        ID_FILE_EXIT
-        MENUITEM "Exit",                        ID_FILE_EXIT40002
+        MENUITEM "Load",                        ID_FILE_LOAD
+        MENUITEM "Exit",                        ID_FILE_EXIT
     END
 END
 

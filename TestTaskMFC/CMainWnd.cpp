@@ -14,7 +14,9 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 		return -1;
 	}
 	m_wndStatusBar.Create(this);
-	m_wndMenu.LoadMenuA(IDR_MENU1);
+	if (m_wndMenu.LoadMenu(IDR_MENU1) == -1) {
+		return -1;
+	}
 	SetMenu(&m_wndMenu);
 	return 0;
 }
