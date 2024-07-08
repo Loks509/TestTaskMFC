@@ -13,7 +13,8 @@ public:
     CMainWnd();
     int OnCreate(LPCREATESTRUCT lpCreateStruct);
     void OnFileExit();
-    void fillTree();
+    void OnFileLoad();
+    void fillTreeFromFile(CString path);
     ~CMainWnd();
 private:
     CStatusBar m_wndStatusBar;

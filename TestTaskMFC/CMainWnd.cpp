@@ -2,6 +2,7 @@
 BEGIN_MESSAGE_MAP(CMainWnd, CFrameWnd)
 	ON_WM_CREATE()
 	ON_COMMAND(ID_FILE_EXIT, OnFileExit)
+	ON_COMMAND(ID_FILE_LOAD, OnFileLoad)
 END_MESSAGE_MAP()
 
 CMainWnd::CMainWnd()
@@ -31,7 +32,6 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 		return -1;
 	}
 	m_wndTreeCtrl->ShowWindow(SW_SHOW);
-	fillTree();
 
 
 	return 0;
@@ -41,22 +41,17 @@ void CMainWnd::OnFileExit() {
 	DestroyWindow();
 }
 
-void CMainWnd::OnFileOpen()
+void CMainWnd::OnFileLoad()
 {
+	CFileDialog fileDialog(TRUE, NULL, "*.txt");
+	if (fileDialog.DoModal() == IDOK) {
+		fillTreeFromFile(fileDialog.GetPathName());
+	}
 }
 
-void CMainWnd::fillTree()
+void CMainWnd::fillTreeFromFile(CString path)
 {
-	HTREEITEM otdel = m_wndTreeCtrl->InsertItem("otdel");
-	m_wndTreeCtrl->InsertItem("1", otdel);
-	m_wndTreeCtrl->InsertItem("2", otdel);
-	m_wndTreeCtrl->InsertItem("3", otdel);
-	m_wndTreeCtrl->InsertItem("4", otdel);
-	HTREEITEM otdel2 = m_wndTreeCtrl->InsertItem("otdel2");
-	m_wndTreeCtrl->InsertItem("1", otdel2);
-	m_wndTreeCtrl->InsertItem("2", otdel2);
-	m_wndTreeCtrl->InsertItem("3", otdel2);
-	m_wndTreeCtrl->InsertItem("4", otdel2);
+	
 }
 
 CMainWnd::~CMainWnd()
