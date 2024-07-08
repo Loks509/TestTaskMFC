@@ -148,6 +148,10 @@
   <ItemGroup>
     <ClInclude Include="CMainWnd.h" />
     <ClInclude Include="CTreeApp.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
