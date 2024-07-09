@@ -41,7 +41,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 		return -1;
 	}
 
-	if (m_wndButton->Create("Sort", WS_CHILD | WS_VISIBLE | SS_CENTER,
+	if (m_wndButton->Create("SORT ASC", WS_CHILD | WS_VISIBLE | SS_CENTER,
 		CRect(200, 10, 300, 50), this, IDC_BUTTON_SORT));
 
 	return 0;
@@ -63,26 +63,21 @@ void CMainWnd::OnFileLoad()
 void CMainWnd::OnBtnSortClick()
 {
 	m_wndButton->SetWindowTextA(CURR_SORT == CSortTreeCtrl::SORT_ASC ? "SORT DESC" : "SORT_ASC");
-	
-	if (CURR_SORT == CSortTreeCtrl::SORT_ASC) {
-		m_wndTreeCtrl->SortChildren(TVI_ROOT, CURR_SORT);
-		CURR_SORT = CSortTreeCtrl::SORT_DESC;
-	} else {
-		m_wndTreeCtrl->SortChildren(TVI_ROOT, CURR_SORT);
-		CURR_SORT = CSortTreeCtrl::SORT_ASC;
-	}
+
+	m_wndTreeCtrl->SortChildren(TVI_ROOT, CURR_SORT);
+
+	CURR_SORT = CURR_SORT == CSortTreeCtrl::SORT_ASC ? CSortTreeCtrl::SORT_DESC : CSortTreeCtrl::SORT_ASC;
 }
 
-/*
-* ѕо умолчанию сортирует по возрастанию благодар€ map
-*/
 void CMainWnd::fillTreeFromFile(CString path)
 {
 	m_wndTreeCtrl->DeleteAllItems();
 
 	CStdioFile file(path, CFile::modeRead);
 	std::map<CString, std::vector<CString>> headTree;
+
 	CString fullname;
+
 	while (file.ReadString(fullname)) {
 		int pos = fullname.FindOneOf(" ");
 		CString firstname = pos > 0 ? fullname.Left(pos) : fullname;
@@ -99,6 +94,7 @@ void CMainWnd::fillTreeFromFile(CString path)
 		}
 		else {
 			HTREEITEM head = m_wndTreeCtrl->InsertItem(nameHead);
+			m_wndTreeCtrl->SetItemData(head, (DWORD)head);
 			for (auto item : vItems) {
 				HTREEITEM head2 = m_wndTreeCtrl->InsertItem(item, head);
 				
