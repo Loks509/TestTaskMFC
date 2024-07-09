@@ -41,8 +41,8 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 		return -1;
 	}
 
-	if (m_wndButton->Create("SORT ASC", WS_CHILD | WS_VISIBLE | SS_CENTER,
-		CRect(200, 10, 300, 50), this, IDC_BUTTON_SORT));
+	if (m_wndButton->Create("SORT ASC", WS_CHILD | WS_VISIBLE | SS_CENTER, CRect(200, 10, 300, 50), this, IDC_BUTTON_SORT) == -1)
+		return -1;
 
 	return 0;
 }
@@ -81,8 +81,6 @@ void CMainWnd::fillTreeFromFile(CString path)
 	while (file.ReadString(fullname)) {
 		int pos = fullname.FindOneOf(" ");
 		CString firstname = pos > 0 ? fullname.Left(pos) : fullname;
-
-		HTREEITEM head;
 		headTree[firstname].push_back(fullname);
 	}
 	file.Close();
