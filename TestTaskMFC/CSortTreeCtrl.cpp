@@ -2,11 +2,25 @@
 
 void CSortTreeCtrl::SortChildren(HTREEITEM HTreeItem, int order)
 {
-	TVSORTCB tvs;
-	tvs.hParent = HTreeItem;
-	tvs.lParam = (LPARAM)this;
-	tvs.lpfnCompare = order == SORT_DESC ? SortFunctionDESC : SortFunctionASC;
-	SortChildrenCB(&tvs);
+	if (HTreeItem == TVI_ROOT) {
+		TVSORTCB tvs;
+		tvs.hParent = HTreeItem;
+		tvs.lParam = (LPARAM)this;
+		tvs.lpfnCompare = order == SORT_DESC ? SortFunctionDESC : SortFunctionASC;
+		SortChildrenCB(&tvs);
+	}
+	HTREEITEM itemUser = GetChildItem(HTreeItem);
+
+	while (itemUser != NULL) {
+		TVSORTCB tvs;
+		tvs.hParent = itemUser;
+		tvs.lParam = (LPARAM)this;
+		tvs.lpfnCompare = order == SORT_DESC ? SortFunctionDESC : SortFunctionASC;
+		SortChildrenCB(&tvs);
+
+		itemUser = GetNextSiblingItem(itemUser);
+	}
+	
 }
 
 int CALLBACK CSortTreeCtrl::SortFunctionASC(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
